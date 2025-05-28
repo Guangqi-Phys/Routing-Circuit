@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project provides simulations for routing circuits using BB codes and Surface codes. The simulations are implemented using the `stim` library.
+This project provides simulations for routing circuits using BB codes and Surface codes. The simulations are implemented using the  [`Stim`](https://github.com/quantumlib/Stim) library.
 
 ## Directory Structure
 
@@ -24,7 +24,7 @@ This project provides simulations for routing circuits using BB codes and Surfac
 
 ### Prerequisites
 
-- see requirements.txt
+- see `requirements.txt`
 
 
 
@@ -39,5 +39,5 @@ This project provides simulations for routing circuits using BB codes and Surfac
 
 ## Acknowledgments
 
-- Thanks to the developers of `stim` for providing a powerful tool for quantum circuit simulations.
+- Thanks to the developers of [`Stim`](https://github.com/quantumlib/Stim) for providing a powerful tool for quantum circuit simulations.
 
