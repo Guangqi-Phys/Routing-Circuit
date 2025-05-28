@@ -1,0 +1,11 @@
+beliefmatching==0.1.1
+bokeh==3.7.1
+bposd==2.1
+ldpc==2.2.8
+matplotlib==3.10.1
+networkx==3.4.2
+numpy==1.26.4
+PyMatching==2.2.1
+scipy==1.15.2
+sinter==1.14.0
+PySCIPOpt==5.4.1
