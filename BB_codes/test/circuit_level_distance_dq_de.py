@@ -3,10 +3,18 @@ import os
 # Add the project root directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
-import matplotlib.pyplot as plt
 from src.bb_code import BBCode
+from circ_gen.circ_gen import gen_circ_only_z_detectors
+from circ_gen.circ_gen_data_qubit_de import gen_circ_data_qubit_de_only_z_det
 from parameters.code_config import get_config
-from src.threshold import run_sinter_simulation, plot_sinter_simulation_threshold_results
+from noise_model.noise_model import standard_depolarizing_noise_model
+import stim
+from src.circuit_level_distance import circuit_level_min_x_distance
+
+"""
+This script is used to compute circuit level X distance for a circuit with data qubit defects.
+"""
+
 
 """
 Code parameters for quantum error correction codes.
@@ -45,19 +53,24 @@ if __name__ == "__main__":
     # print(f"Code parameters: {code.params}")
 
 
-    samples = run_sinter_simulation(code, code.qcodedz, code.qcodedz)
-
-    plot_sinter_simulation_threshold_results(samples,code.params)
 
 
 
+    # body loop number of generated circuit
+    sround = code.qcodedz
+
+    print('Generating circuit...')
+    data_qubit_error_rate = 0.002
+    circuit = gen_circ_data_qubit_de_only_z_det(code, sround, data_qubit_error_rate)
 
 
+    test_probability = 0.002
 
+    print(f"Applying noise with probability {test_probability}...")
 
+    noise_circuit = standard_depolarizing_noise_model(circuit, probability=test_probability)
 
-
-
-
-
+    print('Computing circuit level X distance...')
+    cd_x = circuit_level_min_x_distance(noise_circuit, 500)
+    print(f"Final circuit level X distance: {cd_x}")
 

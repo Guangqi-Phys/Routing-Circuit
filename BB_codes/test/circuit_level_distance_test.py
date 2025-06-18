@@ -5,7 +5,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 from src.bb_code import BBCode
 from circ_gen.circ_gen import gen_circ, gen_circ_only_z_detectors
-from circ_gen.circ_gen_coupler_de import gen_circ_coupler_defect_only_z_detectors
+from circ_gen.circ_gen_coupler_de import gen_circ_coupler_defect_only_z_detectors, gen_circ_50per_coupler, gen_circ_75per_coupler
 from parameters.code_config import get_config
 from noise_model.noise_model import si1000_noise_model, standard_depolarizing_noise_model
 import stim
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     # polynomial parameters that defined the bb code
     # Select which code configuration to use
-    code_setting = 1
+    code_setting = 4
 
     # Get the configuration and its normalized parameters
     config = get_config(code_setting)
@@ -55,10 +55,10 @@ if __name__ == "__main__":
     sround = code.qcodedz
 
     print('Generating circuit...')
-    circuit = gen_circ_coupler_defect_only_z_detectors(code, sround)
+    circuit = gen_circ_50per_coupler(code, sround)
 
 
-    test_probability = 0.002
+    test_probability = 0.02
 
     print(f"Applying noise with probability {test_probability}...")
     
@@ -66,6 +66,6 @@ if __name__ == "__main__":
     noise_circuit = si1000_noise_model(circuit, full_qubit_set, probability=test_probability)
 
     print('Computing circuit level X distance...')
-    cd_x = circuit_level_min_x_distance(noise_circuit, 500)
+    cd_x = circuit_level_min_x_distance(noise_circuit, 10000)
     print(f"Final circuit level X distance: {cd_x}")
 

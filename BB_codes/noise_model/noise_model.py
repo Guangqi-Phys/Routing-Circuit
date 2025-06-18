@@ -45,7 +45,7 @@ def standard_depolarizing_noise_model(
         elif instruction.name == 'M':
             result.append('Z_error', instruction.targets_copy(), probability)
             result.append(instruction)
-            result.append('DEPOLARIZE1', instruction.targets_copy(), probability)
+            result.append('Z_error', instruction.targets_copy(), probability)
             result.append('DEPOLARIZE1', list(set(full_qubit_set) - set(instruction.targets_copy())), probability)
         # Add two-qubit depolarizing noise after CNOT gates
         elif instruction.name == 'CX':
@@ -56,13 +56,13 @@ def standard_depolarizing_noise_model(
         elif instruction.name == 'MR':
             result.append('Z_error', instruction.targets_copy(), probability)
             result.append(instruction)
-            result.append('DEPOLARIZE1', instruction.targets_copy(), probability)
+            result.append('Z_error', instruction.targets_copy(), probability)
             result.append('DEPOLARIZE1', list(set(full_qubit_set) - set(instruction.targets_copy())), probability)
         # Add measurement errors for MRX gates (measure and reset with X rotation)
         elif instruction.name == 'MRX':
             result.append('X_error', instruction.targets_copy(), probability)
             result.append(instruction)
-            result.append('DEPOLARIZE1', instruction.targets_copy(), probability)
+            result.append('X_error', instruction.targets_copy(), probability)
             result.append('DEPOLARIZE1', list(set(full_qubit_set) - set(instruction.targets_copy())), probability)
         # Pass through other instructions unchanged
         else:

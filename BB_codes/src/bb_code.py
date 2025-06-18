@@ -152,6 +152,7 @@ class BBCode:
         self.x_stabilizers = {}
         self.x_ancilla_labels = []
         self.corresponding_z_ancillas = []
+        self.corresponding_z_ancillas_50per = []
         
         # Iterate through the l×m grid of X-type stabilizers
         for i in range(self.l):
@@ -165,6 +166,10 @@ class BBCode:
                     2*i+1+self.x_rel_pos[4][0]-self.z_rel_pos[4][0],
                     2*j+self.x_rel_pos[4][1]-self.z_rel_pos[4][1]
                 )
+                corr_z_ancilla_50per = self.qubit_label(
+                    2*i+1+self.x_rel_pos[5][0]-self.z_rel_pos[3][0],
+                    2*j+self.x_rel_pos[5][1]-self.z_rel_pos[3][1]
+                )
                 
                 # For each of the 6 data qubits connected to this stabilizer
                 for k in range(6):
@@ -177,10 +182,12 @@ class BBCode:
                 # Add this ancilla qubit to the list of X-type ancilla qubits
                 self.x_ancilla_labels.append(x_ancilla_label)
                 self.corresponding_z_ancillas.append(corr_z_ancilla)
+                self.corresponding_z_ancillas_50per.append(corr_z_ancilla_50per)
         # Initialize dictionary for Z-type stabilizers and list to store ancilla qubit labels
         self.z_stabilizers = {}
         self.z_ancilla_labels = []
         self.corresponding_x_ancillas = []
+        self.corresponding_x_ancillas_50per = []
 
 
         
@@ -196,6 +203,10 @@ class BBCode:
                     2*i+self.z_rel_pos[4][0]-self.x_rel_pos[4][0],
                     2*j+1+self.z_rel_pos[4][1]-self.x_rel_pos[4][1]
                 )
+                corr_x_ancilla_50per = self.qubit_label(
+                    2*i+self.z_rel_pos[5][0]-self.x_rel_pos[2][0],
+                    2*j+1+self.z_rel_pos[5][1]-self.x_rel_pos[2][1]
+                )
                 
                 
                 # For each of the 6 data qubits connected to this stabilizer
@@ -209,6 +220,7 @@ class BBCode:
                 # Add this ancilla qubit to the list of Z-type ancilla qubits
                 self.z_ancilla_labels.append(z_ancilla_label)
                 self.corresponding_x_ancillas.append(corr_x_ancilla)
+                self.corresponding_x_ancillas_50per.append(corr_x_ancilla_50per)
 
    
         full_qubit = self.data_qubits_set + self.x_ancilla_labels + self.z_ancilla_labels

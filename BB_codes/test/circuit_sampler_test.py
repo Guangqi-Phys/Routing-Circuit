@@ -7,7 +7,8 @@ from src.bb_code import BBCode
 from circ_gen.circ_gen import gen_circ_only_z_detectors
 from parameters.code_config import get_config
 from noise_model.noise_model import standard_depolarizing_noise_model
-from circ_gen.circ_gen_coupler_de import gen_circ_coupler_defect, gen_circ_coupler_defect_only_z_detectors
+from circ_gen.circ_gen_coupler_de import gen_circ_coupler_defect, gen_circ_coupler_defect_only_z_detectors, gen_circ_75per_coupler, gen_circ_50per_coupler
+from circ_gen.circ_gen_data_qubit_de import gen_circ_data_qubit_de_only_z_det
 
 """
 Code parameters for quantum error correction codes.
@@ -48,13 +49,13 @@ if __name__ == "__main__":
     error_rate = 0.01
 
     print('Generating circuit...')
-    circuit = gen_circ_coupler_defect_only_z_detectors(code, sround)
+    circuit = gen_circ_50per_coupler(code, sround)
 
     # save circuit diagram to svg file
     # svg_text = str(circuit.diagram('timeline-svg'))
     # with open("figures/circuit_diagram_1.svg", "w") as f:
     #     f.write(svg_text)
-
+    
 
 
     test_probability = 0.002
@@ -64,6 +65,8 @@ if __name__ == "__main__":
     noise_circuit = standard_depolarizing_noise_model(circuit, code.full_qubit_set, probability=test_probability)
 
     # save the detector circuit diagram to svg file
+
+    print("noisy circuit:", noise_circuit)
 
 
 
